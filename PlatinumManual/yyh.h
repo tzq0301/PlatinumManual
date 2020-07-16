@@ -13,6 +13,7 @@ int sign_up();
 int log_in();
 void update_password();
 void show_information();
+void delete_information();
 
 
 

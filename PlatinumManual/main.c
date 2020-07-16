@@ -122,6 +122,11 @@ void main_menu() {
 			delete_information(id);
 			break;
 		case 9:
+			printf("\n");
+			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+			printf("                               期待您的下次使用！！！\n");
+			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+			printf("\n");
 			exit(1);
 		default:
 			break;

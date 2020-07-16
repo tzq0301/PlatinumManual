@@ -15,3 +15,7 @@ void update_password() {
 void show_information() {
 	// printf各项数据
 }
+
+void delete_information() {
+
+}
