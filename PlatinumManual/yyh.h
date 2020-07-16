@@ -1,25 +1,18 @@
 #ifndef PLATINUMMANUAL_YYH_H
 #define PLATINUMMANUAL_YYH_H
 
-#include <stdio.h>
+struct user {
+	long long int id;
+	char password[16];
+	char user_name[20];
+	char birthday[15];
+	char introduce[100];
+};
 
-int sign_up() {
-
-	return -1; // 若不成功，则返回-1；若成功，则返回账号对应的id
-}
-
-int log_in() {
-
-	return -1; // 若不成功，则返回-1；若成功，则返回账号对应的id
-}
-
-void update_password() {
-
-}
-
-void show_information() {
-	// printf各项数据
-}
+int sign_up();
+int log_in();
+void update_password();
+void show_information();
 
 
 

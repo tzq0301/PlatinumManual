@@ -3,4 +3,4 @@ project(PlatinumManual C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(PlatinumManual main.c zyz.h lyy.h yyh.h hyk.h)
+add_executable(PlatinumManual main.c zyz.h lyy.h yyh.h hyk.h yyh.c lyy.c zyz.c hyk.c)
