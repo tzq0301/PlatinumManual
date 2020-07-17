@@ -8,7 +8,7 @@
 #include "hyk.h"
 
 
-long long int id = -1; // 当前使用程序的用户的id
+char id[20] = "fail"; // 当前使用程序的用户的id
 
 void welcome(); // 欢迎界面
 int get_choice(int amount); // 获取choice选择
@@ -21,7 +21,7 @@ int main() {
 	 * 若注册失败或登陆失败，两个函数均会将-1赋值给main.c的全局变量id；
 	 * 若注册成功或登陆成功，两个函数均会将当前用户的id赋值给main.c的全局变量id。
 	 */
-	while (id == -1) {
+	while (!strcmp(id, "fail")) {
 		welcome();
 	}
 
@@ -39,11 +39,11 @@ int main() {
 
 void welcome() {
 	printf("\n");
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("                         欢迎使用白金手册！！！\n");
 	printf("                           请选择注册或者登陆\n");
 	printf("                             1. 注册      2. 登陆\n");
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("\n");
 
 	int num_of_choices = 2;
@@ -52,10 +52,10 @@ void welcome() {
 	// 根据choice进行选择
 	switch (choice) {
 		case 1:
-			id = sign_up();
+			strcpy(id, sign_up());
 			break;
 		case 2:
-			id = log_in();
+			strcpy(id, log_in());
 			break;
 		default:
 			break;
@@ -77,7 +77,7 @@ int get_choice(int amount) {
 
 void main_menu() {
 	printf("\n");
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("                       欢迎进入白金手册主界面！！！\n");
 	printf("                            请选择您要进行的操作：\n");
 	printf("                                 1. 网页夹管理\n");
@@ -89,7 +89,7 @@ void main_menu() {
 	printf("                                 7. 个人信息查看\n");
 	printf("                                 8. 删除用户数据\n");
 	printf("                                 9. 退出程序\n");
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("\n");
 
 	int num_of_choices = 9;

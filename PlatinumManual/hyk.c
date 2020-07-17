@@ -1,3 +1,3 @@
-void manage_schedule(long long int id) {
+void manage_schedule(char *id) {
 
 }
