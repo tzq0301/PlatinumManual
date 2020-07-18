@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-void manage_diary(char *id) {
+void manage_url_of_web_page(char *id) {
 
-	printf("\n日记管理\n\n"); // 测试用语句
+	printf("\n网页夹管理\n\n"); // 测试用语句
 
 	return;
 }

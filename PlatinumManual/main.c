@@ -8,8 +8,10 @@
 #include "hyk.h"
 
 
+// 全局变量：用户id
 char id[20] = "fail"; // 当前使用程序的用户的id
 
+// 用户交互界面的函数声明
 void welcome(); // 欢迎界面
 int get_choice(int amount); // 获取choice选择
 void main_menu(); // 主界面
