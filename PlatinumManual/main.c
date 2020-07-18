@@ -16,6 +16,8 @@ void main_menu(); // 主界面
 
 
 int main() {
+	// 若在命令行运行，则选择0B或0F；若在CLion内运行，则选择0E
+	system("color 0B");
 
 	/*
 	 * 若注册失败或登陆失败，两个函数均会将"fail"赋值给main.c的全局变量id；
@@ -23,6 +25,8 @@ int main() {
 	 */
 	while (!strcmp(id, "fail")) {
 		welcome();
+		system("pause");
+		system("CLS");
 	}
 
 	/*
@@ -33,20 +37,23 @@ int main() {
 	 */
 	while (1) {
 		main_menu();
+		system("pause");
+		system("CLS");
 	}
 
 }
 
 void welcome() {
 	printf("\n");
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("                         欢迎使用白金手册！！！\n");
-	printf("                           请选择注册或者登陆\n");
-	printf("                             1. 注册      2. 登陆\n");
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+	printf("                          请选择注册或者登陆\n");
+	printf("                          1. 注册   2. 登陆\n");
+	printf("                               3. 退出\n");
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("\n");
 
-	int num_of_choices = 2;
+	int num_of_choices = 3;
 	int choice = get_choice(num_of_choices); // 获得用户所要进行的操作对应的选项
 
 	// 根据choice进行选择
@@ -57,6 +64,14 @@ void welcome() {
 		case 2:
 			strcpy(id, log_in());
 			break;
+		case 3:
+			printf("\n");
+			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+			printf("                               期待您的下次使用！！！\n");
+			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+			printf("\n");
+			system("pause");
+			exit(1);
 		default:
 			break;
 	}
@@ -78,17 +93,17 @@ int get_choice(int amount) {
 void main_menu() {
 	printf("\n");
 	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
-	printf("                       欢迎进入白金手册主界面！！！\n");
-	printf("                            请选择您要进行的操作：\n");
-	printf("                                 1. 网页夹管理\n");
-	printf("                                 2. 通讯录管理\n");
-	printf("                                 3. 日记管理\n");
-	printf("                                 4. 密码管理\n");
-	printf("                                 5. 日程管理\n");
-	printf("                                 6. 个人密码修改\n");
-	printf("                                 7. 个人信息查看\n");
-	printf("                                 8. 删除用户数据\n");
-	printf("                                 9. 退出程序\n");
+	printf("                     欢迎进入白金手册主界面！！！\n");
+	printf("                      请选择您要进行的操作：\n");
+	printf("                         1. 网页夹管理\n");
+	printf("                         2. 通讯录管理\n");
+	printf("                         3. 日记管理\n");
+	printf("                         4. 密码管理\n");
+	printf("                         5. 日程管理\n");
+	printf("                         6. 个人密码修改\n");
+	printf("                         7. 个人信息查看\n");
+	printf("                         8. 删除用户数据\n");
+	printf("                         9. 退出程序\n");
 	printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 	printf("\n");
 
@@ -123,10 +138,11 @@ void main_menu() {
 			break;
 		case 9:
 			printf("\n");
-			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 			printf("                               期待您的下次使用！！！\n");
-			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
+			printf("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 			printf("\n");
+			system("pause");
 			exit(1);
 		default:
 			break;
