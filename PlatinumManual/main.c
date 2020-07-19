@@ -4,8 +4,9 @@
 
 #include "yyh.h"
 #include "lyy.h"
-#include "zyz.h"
 #include "hyk.h"
+#include "manage_password.h"
+#include "manage_url_of_web_page.h"
 
 
 // 全局变量：用户id
