@@ -13,16 +13,16 @@ void seeking_by_webname(char *id, char *webname);
 
 void seeking_by_remarks(char *id, char *remarks);
 
-void writing(char *id);
+void writing_web_page(char *id);
 
-struct web *readFile(const char *filename);
+struct web *readFile_web_page(const char *filename);
 
 // 注释该函数声明以解决未知原因的报错
-//void insert_data(struct Userdata *pdata, char *address);
+//void insert_data_web_page(struct Userdata *pdata, char *address);
 
-void save_file(const char *filename, struct web *p);
+void save_file_web_page(const char *filename, struct web *p);
 
-void free_file(struct web *p);
+void free_file_web_page(struct web *p);
 
 void del_data_by_webname(char *webname, char *address);
 
@@ -39,7 +39,7 @@ struct web {
 	struct web *next;
 };
 
-struct web *readFile(const char *filename) {
+struct web *readFile_web_page(const char *filename) {
 	FILE *fp; //声明指向文件结构体的指针变量fp
 	struct web *head = NULL; //声明链表头结点指针head，并赋值为空
 	struct web *p = NULL; //声明链表节点指针p,p1（p用于存储从文件读取的当前节点，p1用于标识创建链表过程的尾节点）
@@ -74,8 +74,8 @@ struct web *readFile(const char *filename) {
 	return head; //返回链表头结点指针head（head为一个非空链表的头结点）
 }
 
-void insert_data(struct Userdata *pdata, char *address) {
-	struct web *head = readFile(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
+void insert_data_web_page(struct Userdata *pdata, char *address) {
+	struct web *head = readFile_web_page(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *p; //声明链表节点指针p（p用于存储传入的用户数据）
 	struct web *p1 = head; //声明链表节点指针p1（p1用于存储当前节点）
 	if (!p1) { //判断头结点是否为空（为空为真（为真即为文件为空），头结点未申请空间）
@@ -93,11 +93,11 @@ void insert_data(struct Userdata *pdata, char *address) {
 		p->next = p1->next; //将尾节点的next域赋值给p节点的next域（将NULL赋值给尾结点的next域）
 		p1->next = p; //曾经尾结点的next域指向当前p节点（尾结点变为p节点，即将p插入到链表的尾部）
 	}
-	save_file(address, head); //将插入后的链表存入文件
-	free_file(head); //释放链表
+	save_file_web_page(address, head); //将插入后的链表存入文件
+	free_file_web_page(head); //释放链表
 }
 
-void save_file(const char *filename, struct web *p) {
+void save_file_web_page(const char *filename, struct web *p) {
 	FILE *fp; //声明指向文件结构体的指针变量fp
 	fp = fopen(filename, "w+"); //以每次打开清空文件内容的方式打开可读写文件，在文件不存在时创建文件，并把返回值赋值给指针变量fp
 	if (fp == NULL) { //打开失败，错误处理
@@ -111,7 +111,7 @@ void save_file(const char *filename, struct web *p) {
 	fclose(fp); //关闭文件
 }
 
-void free_file(struct web *p) {
+void free_file_web_page(struct web *p) {
 	struct web *p1; //声明链表节点指针p1（p1用于存储要释放的当前节点）
 	while (p) { //循环编译传入的链表
 		p1 = p; //将当前遍历节点赋值于p1
@@ -146,7 +146,7 @@ void manage_web_index(char *id) {
 			seeking_by_remarks(id, remarks);
 			break;
 		case 3:
-			writing(id);
+			writing_web_page(id);
 			break;
 		case 4:
 			return;
@@ -164,7 +164,7 @@ void seeking_by_webname(char *id, char *webname) {
 	strcpy(fileaddress, "..\\information\\");
 	strcat(fileaddress, id);
 	strcat(fileaddress, "\\manage_web.txt");
-	struct web *head = readFile(fileaddress); //读取文件中的数据并整合为链表，将头结点指针传递给head
+	struct web *head = readFile_web_page(fileaddress); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *point = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	if (!point) { //判断当前结点（头结点）是否为空（为空为真，即文件为空）
 		printf("你还没有记录过哦（o^^o）\n");
@@ -227,7 +227,7 @@ void seeking_by_webname(char *id, char *webname) {
 		printf("找不到，已返回。");
 		manage_web_index(id);
 	}
-	free_file(head); //释放链表
+	free_file_web_page(head); //释放链表
 }
 
 // 涉及文件名修改
@@ -238,7 +238,7 @@ void seeking_by_remarks(char *id, char *remarks) {
 	strcpy(fileaddress, "..\\information\\");
 	strcat(fileaddress, id);
 	strcat(fileaddress, "\\manage_web.txt");
-	struct web *head = readFile(fileaddress); //读取文件中的数据并整合为链表，将头结点指针传递给head
+	struct web *head = readFile_web_page(fileaddress); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *point = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	if (!point) { //判断当前结点（头结点）是否为空（为空为真，即文件为空）
 		printf("你还没有记录过哦（o^^o）\n");
@@ -299,11 +299,11 @@ void seeking_by_remarks(char *id, char *remarks) {
 		printf("找不到，已返回。");
 		manage_web_index(id);
 	}
-	free_file(head); //释放链表
+	free_file_web_page(head); //释放链表
 }
 
 void del_data_by_webname(char *webname, char *address) {
-	struct web *head = readFile(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
+	struct web *head = readFile_web_page(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *p = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	struct web *pdel; //声明链表节点指针pdel（pdel用于存储要删除的节点）
 	if (!head) { //判断头结点是否为空（为空为真，即文件为空）
@@ -324,12 +324,12 @@ void del_data_by_webname(char *webname, char *address) {
 			printf("no have data delete!\n");
 		}
 	}
-	save_file(address, head); //将删除后的链表存入文件
-	free_file(head); //释放链表
+	save_file_web_page(address, head); //将删除后的链表存入文件
+	free_file_web_page(head); //释放链表
 }
 
 void del_data_by_remarks(char *remarks, char *address) {
-	struct web *head = readFile(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
+	struct web *head = readFile_web_page(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *p = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	struct web *pdel; //声明链表节点指针pdel（pdel用于存储要删除的节点）
 	if (!head) { //判断头结点是否为空（为空为真，即文件为空）
@@ -350,12 +350,12 @@ void del_data_by_remarks(char *remarks, char *address) {
 			printf("no have data delete!\n");
 		}
 	}
-	save_file(address, head); //将删除后的链表存入文件
-	free_file(head); //释放链表
+	save_file_web_page(address, head); //将删除后的链表存入文件
+	free_file_web_page(head); //释放链表
 }
 
 // 涉及文件名修改
-void writing(char *id) {
+void writing_web_page(char *id) {
 	User_t data;
 	char fileaddress[60];
 	strcpy(fileaddress, "..\\information\\");
@@ -366,7 +366,7 @@ void writing(char *id) {
 	scanf("%s", &data.web);
 	printf("请输入备注：\n");
 	scanf("%s", &data.remark);
-	insert_data(&data, fileaddress);
+	insert_data_web_page(&data, fileaddress);
 	printf("成功记录，已返回。\n");
 	manage_web_index(id);
 }

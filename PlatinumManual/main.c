@@ -26,11 +26,11 @@ int main() {
 	 * 若注册失败或登陆失败，两个函数均会将"fail"赋值给main.c的全局变量id；
 	 * 若注册成功或登陆成功，两个函数均会将当前用户的id赋值给main.c的全局变量id。
 	 */
-	while (!strcmp(id, "fail")) {
-		welcome();
-		system("pause");
-		system("CLS");
-	}
+//	while (!strcmp(id, "fail")) {
+//		welcome();
+//		system("pause");
+//		system("CLS");
+//	}
 
 	/*
 	 * 在此设置死循环，
