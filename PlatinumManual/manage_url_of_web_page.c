@@ -18,7 +18,7 @@ void writing_web_page(char *id);
 struct web *readFile_web_page(const char *filename);
 
 // 注释该函数声明以解决未知原因的报错
-//void insert_data_web_page(struct Userdata *pdata, char *address);
+//void insert_data_web_page(struct Userdata_password *pdata, char *address);
 
 void save_file_web_page(const char *filename, struct web *p);
 
@@ -28,7 +28,9 @@ void del_data_by_webname(char *webname, char *address);
 
 void del_data_by_remarks(char *remarks, char *address);
 
-typedef struct Userdata {
+void change_web_page(char *id, char *fileaddress, char *new_web, char *new_remark);
+
+typedef struct Userdata_password {
 	char id[20];
 	char remark[100];
 	char web[60];
@@ -74,7 +76,7 @@ struct web *readFile_web_page(const char *filename) {
 	return head; //返回链表头结点指针head（head为一个非空链表的头结点）
 }
 
-void insert_data_web_page(struct Userdata *pdata, char *address) {
+void insert_data_web_page(struct Userdata_password *pdata, char *address) {
 	struct web *head = readFile_web_page(address); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *p; //声明链表节点指针p（p用于存储传入的用户数据）
 	struct web *p1 = head; //声明链表节点指针p1（p1用于存储当前节点）
@@ -122,11 +124,11 @@ void free_file_web_page(struct web *p) {
 
 void manage_web_index(char *id) {
 	int choice_one = 0;
-	printf("\n请选择功能：\n");
+	printf("\n很高兴为您服务！请选择我的功能叭：(*^▽^*)\n");
 	printf("1：通过网站查询（包括修改）\n");
 	printf("2：通过备注查询（包括修改）\n");
-	printf("3:记录\n");
-	printf("4:返回\n");
+	printf("3:添加新记录\n");
+	printf("4:无情地离开o(╥﹏╥)o\n");
 	scanf("%d", &choice_one);
 	while ((choice_one != 1) && (choice_one != 2) && (choice_one != 3) && (choice_one != 4)) {
 		printf("没有这个选项哦亲，再来一遍吧！");
@@ -151,7 +153,7 @@ void manage_web_index(char *id) {
 		case 4:
 			return;
 		default:
-			printf("错误！自动返回。");
+			printf("没有这个选项哎！已经自动返回啦。(〃'▽'〃)");
 			return;
 	}
 }
@@ -194,20 +196,24 @@ void seeking_by_webname(char *id, char *webname) {
 //						char new_webname[30]; // 变量定义1迁移至外部*
 						printf("请输入新的网站：\n");
 						scanf("%s", new_webname);
+						del_data_by_webname(point->data.web, fileaddress);
 						strcpy(point->data.web, new_webname);
-						printf("修改成功。");
+						change_web_page(id, fileaddress, point->data.web, point->data.remark);
+						printf("修改成功。(*^▽^*)");
 						manage_web_index(id);
 						break;
 					case 2:
 //						char new_remarks[100]; // 变量定义2迁移至外部*
 						printf("请输入新的备注：\n");
 						scanf("%s", new_remarks);
+						del_data_by_webname(point->data.web, fileaddress);
 						strcpy(point->data.remark, new_remarks);
-						printf("修改成功。\n");
+						change_web_page(id, fileaddress, point->data.web, point->data.remark);
+						printf("修改成功。(*^▽^*)\n");
 						manage_web_index(id);
 						break;
 					default:
-						printf("输入错误，自动返回。\n");
+						printf("这个。。这个选项，是不可以的o(╥﹏╥)o\n");
 						manage_web_index(id);
 						break;
 				}
@@ -218,13 +224,13 @@ void seeking_by_webname(char *id, char *webname) {
 				manage_web_index(id);
 				break;
 			default:
-				printf("输入错误，已自动返回。\n");
+				printf("这个。。这个选项，是不可以的o(╥﹏╥)o\n");
 				manage_web_index(id);
 				break;
 		}
 	} else //链表中无要查找的节点
 	{
-		printf("找不到，已返回。");
+		printf("我没有找到这个网站哎ε=('ο｀*)))");
 		manage_web_index(id);
 	}
 	free_file_web_page(head); //释放链表
@@ -241,7 +247,7 @@ void seeking_by_remarks(char *id, char *remarks) {
 	struct web *head = readFile_web_page(fileaddress); //读取文件中的数据并整合为链表，将头结点指针传递给head
 	struct web *point = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	if (!point) { //判断当前结点（头结点）是否为空（为空为真，即文件为空）
-		printf("你还没有记录过哦（o^^o）\n");
+		printf("你还没有记录过哎（o^^o）\n");
 		return; //返回0
 	}
 	while (point != NULL && strcmp(point->data.remark, remarks) != 0) { //循环遍历链表，找到要查找的节点
@@ -268,7 +274,9 @@ void seeking_by_remarks(char *id, char *remarks) {
 //						char new_webname[30]; // 变量定义1迁移至外部*
 						printf("请输入新的网站：\n");
 						scanf("%s", new_webname);
+						del_data_by_remarks(point->data.remark, fileaddress);
 						strcpy(point->data.web, new_webname);
+						change_web_page(id, fileaddress, point->data.web, point->data.remark);
 						printf("修改成功。");
 						manage_web_index(id);
 						break;
@@ -276,12 +284,14 @@ void seeking_by_remarks(char *id, char *remarks) {
 //						char new_remarks[100]; // 变量定义2迁移至外部*
 						printf("请输入新的备注：\n");
 						scanf("%s", new_remarks);
+						del_data_by_remarks(point->data.web, fileaddress);
 						strcpy(point->data.remark, new_remarks);
-						printf("修改成功。\n");
+						change_web_page(id, fileaddress, point->data.web, point->data.remark);
+						printf("修改成功。(*^▽^*)\n");
 						manage_web_index(id);
 						break;
 					default:
-						printf("输入错误，自动返回。\n");
+						printf("这个。。这个选项，是不可以的o(╥﹏╥)o\n");
 						manage_web_index(id);
 						break;
 				}
@@ -291,12 +301,12 @@ void seeking_by_remarks(char *id, char *remarks) {
 				manage_web_index(id);
 				break;
 			default:
-				printf("输入错误，已自动返回。\n");
+				printf("这个。。这个选项，是不可以的o(╥﹏╥)o\n");
 				manage_web_index(id);
 				break;
 		}
 	} else { //链表中无要查找的节点
-		printf("找不到，已返回。");
+		printf("我没有找到这个软件哎ε=('ο｀*)))");
 		manage_web_index(id);
 	}
 	free_file_web_page(head); //释放链表
@@ -307,7 +317,7 @@ void del_data_by_webname(char *webname, char *address) {
 	struct web *p = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	struct web *pdel; //声明链表节点指针pdel（pdel用于存储要删除的节点）
 	if (!head) { //判断头结点是否为空（为空为真，即文件为空）
-		printf("no have data delete!\n");
+		printf("我没有找到这个网站哎ε=('ο｀*)))\n");
 	} else if (!strcmp(p->data.web, webname)) { //判断头结点是否为要删除的节点（是为真）
 		pdel = p; //将当前节点p（头结点head）赋值给pdel
 		head = head->next; //将头结点的下一个节点赋值给头结点
@@ -333,7 +343,7 @@ void del_data_by_remarks(char *remarks, char *address) {
 	struct web *p = head; //声明链表节点指针p（p用于存储当前节点），并将head赋值给p
 	struct web *pdel; //声明链表节点指针pdel（pdel用于存储要删除的节点）
 	if (!head) { //判断头结点是否为空（为空为真，即文件为空）
-		printf("no have data delete!\n");
+		printf("你好像还没有记录过哎（o^^o）\n");
 	} else if (!strcmp(p->data.remark, remarks)) { //判断头结点是否为要删除的节点（是为真）
 		pdel = p; //将当前节点p（头结点head）赋值给pdel
 		head = head->next; //将头结点的下一个节点赋值给头结点
@@ -347,7 +357,7 @@ void del_data_by_remarks(char *remarks, char *address) {
 			p->next = pdel->next; //将要删除节点的下一个节点赋值给要删除节点的上一个节点（将其前一个节点和后一个节点相连）
 			free(pdel); //释放要删除的节点
 		} else { //链表中无要删除的节点
-			printf("no have data delete!\n");
+			printf("我没有找到这个备注哎ε=('ο｀*)))\n");
 		}
 	}
 	save_file_web_page(address, head); //将删除后的链表存入文件
@@ -367,8 +377,15 @@ void writing_web_page(char *id) {
 	printf("请输入备注：\n");
 	scanf("%s", &data.remark);
 	insert_data_web_page(&data, fileaddress);
-	printf("成功记录，已返回。\n");
+	printf("成功记录，已返回(*^▽^*)\n");
 	manage_web_index(id);
+}
+
+void change_web_page(char *id, char *fileaddress, char *new_web, char *new_remark) {
+	User_t data;
+	strcpy(data.web, new_web);
+	strcpy(data.remark, new_remark);
+	insert_data_web_page(&data, fileaddress);
 }
 
 void manage_url_of_web_page(char *id) {
