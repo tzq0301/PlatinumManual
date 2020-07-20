@@ -3,10 +3,11 @@
 #include <string.h>
 
 #include "yyh.h"
-#include "lyy.h"
 #include "hyk.h"
 #include "manage_password.h"
 #include "manage_url_of_web_page.h"
+#include "manage_address_list.h"
+#include "manage_diary.h"
 
 
 // 全局变量：用户id
@@ -22,15 +23,18 @@ int main() {
 	// 若在命令行运行，则选择0B或0F；若在CLion内运行，则选择0E
 	system("color 0B");
 
-	/*
-	 * 若注册失败或登陆失败，两个函数均会将"fail"赋值给main.c的全局变量id；
-	 * 若注册成功或登陆成功，两个函数均会将当前用户的id赋值给main.c的全局变量id。
-	 */
-//	while (!strcmp(id, "fail")) {
+//	printf("软件加载中~~~");
+//	Create_File();
+//
+//	/*
+//	 * 若注册失败或登陆失败，两个函数均会将"fail"赋值给main.c的全局变量id；
+//	 * 若注册成功或登陆成功，两个函数均会将当前用户的id赋值给main.c的全局变量id。
+//	 */
+//	do {
 //		welcome();
 //		system("pause");
 //		system("CLS");
-//	}
+//	} while (!strcmp(id, "fail"));
 
 	/*
 	 * 在此设置死循环，
@@ -62,10 +66,10 @@ void welcome() {
 	// 根据choice进行选择
 	switch (choice) {
 		case 1:
-			strcpy(id, sign_up());
+			strcpy(id, sign_up(id));
 			break;
 		case 2:
-			strcpy(id, log_in());
+			strcpy(id, log_in(id));
 			break;
 		case 3:
 			printf("\n");
